@@ -1,9 +1,9 @@
 
 
-#Aaron Cameresi			Pizza.rb 		6-27-2017
+#Aaron Cameresi			Pizza.rb 		
 
-#make pizza, every iteration, different pizza;
-#method for each part of the pizza;
+# make pizza, every iteration, different pizza;
+# method for each part of the pizza;
 # => returns type of crust, meats, veggies, special toppings, different sauces
 # options for extra cheese, double meat
 # ask how many random pizza
@@ -59,50 +59,120 @@ def sauce
 
 end
 
-def extraToppings
+def delivery(price)
 
-	#value townnn
-	print "would you like extra toppings? press 1 for extra meat, 2 for extra cheese, or 3 for both, or 4 for nothing. \n"
-	extraToppings_choice = gets.to_i
+	distance = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].sample
+	distance_int = distance
 
-	case extraToppings_choice
+	print "will this pizza be for delivery? (y/n)\n"
+	delivery_choice = gets.chomp
+		
+		case delivery_choice
+		
+		when "y"
+			
+			print "Your pizza will be delivered shortly. Thank you for your business!\n"
+			price += distance_int
 
-	when 1
-		print "(1) extra meat will be added.\n"
+			return price
+		
+		when "n"
+			print "your pizza will be hot 'n ready upon your arrival. Thank you for your business!\n"
+		
+		else
+			print "wrong boi\n"
+		
+		end
 
-	when 2
-		print "(1) extra cheese will be added.\n"
+	return price
 
-	when 3
-		print "(1) extra meat and (1) extra cheese will be added.\n"
+end
 
-	when 4
-		print "nothing extra will be added. Enjoy your pizza!\n"
+def tip(price)
+
+	print "would you like to add a tip? (y/n)\n"
+	tip_choice = gets.chomp
+
+	case tip_choice
+
+	when "y"
+
+		print "please enter your tip amount: \n"
+
+		tip_amount = gets.to_i
+
+		price += tip_amount
+
+		return price
+
+	when "n"
+
+		print "You have selected to not tip.\n"
 
 	else
-		print "That is not a valid option. Terminating program. . .\n"
+		print "wrong boi\n"
 
 	end
+
+end
+
+def pizza_orders(price)
+
+	print "How many pizzas would you like to order?\n"
+
+	x = gets.to_i
+
+	pizza_count = 1
+
+
+	x.times do
+		crust
+		meat
+		veggies
+		specToppings
+		sauce
+
+		print "Pizza #{pizza_count} has #{crust} crust, #{meat}, #{veggies}, #{specToppings}, and #{sauce}.\n"
+
+		print "would you like extra toppings? press 1 for extra meat, 2 for extra cheese, or 3 for nothing.\n"
+		extraToppings_choice = gets.to_i
+
+		case extraToppings_choice
+
+		when 1
+			print "(1) extra meat will be added.\n"
+			price += 3.18
+
+		when 2
+			print "(1) extra cheese will be added.\n"
+			price += 2.12
+
+		when 3
+			print "nothing extra will be added. Enjoy your pizza!\n"
+
+		else
+
+			#need to get this to loop
+
+			print "That is not a valid option. Please enter 1, 2, or 3.\n"
+			extraToppings_choice = gets.to_i 
+		end
+
+		pizza_count += 1
 		
+	end
+
+		price += (x * 5 * 1.06)
+
+		
+	print "Your total is: $#{price}.\n"
+
 end
 
+price = 0
 
-print "How many pizzas would you like to order?\n"
+delivery(price)
 
-x = gets.to_i
+tip(price)
 
-pizza_count = 0
-
-x.times do
-	crust
-	meat
-	veggies
-	specToppings
-	sauce
-
-	pizza_count = pizza_count + 1
-	
-	print "Pizza #{pizza_count} has #{crust} crust, #{meat}, #{veggies}, #{specToppings}, and #{sauce}.\n"
-end
-
-extraToppings
+pizza_orders(price)
